@@ -1,0 +1,6 @@
+@ITIDB_.net_WebApi_HostAddress = http://localhost:5270
+
+GET {{ITIDB_.net_WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
