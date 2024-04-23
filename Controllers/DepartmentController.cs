@@ -1,5 +1,8 @@
 ﻿using ITIDB_.net_WebApi.DTO;
+using ITIDB_.net_WebApi.interfaces;
 using ITIDB_.net_WebApi.Models;
+using ITIDB_.net_WebApi.repositories;
+using ITIDB_.net_WebApi.UniitOfWorks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,17 +12,31 @@ namespace ITIDB_.net_WebApi.Controllers
     [ApiController]
     public class DepartmentController : ControllerBase
     {
-        private readonly ITIContext _context;
+        private readonly UnitWork unit;
 
-        public DepartmentController(ITIContext context)
+        //private readonly GenericRepository<Department> repository;
+
+        //public DepartmentController(GenericRepository<Department> repository)
+        //{
+
+        //    this.repository = repository;
+        //}
+
+
+        public DepartmentController(UnitWork unit)
         {
-            _context = context;
+            this.unit = unit;
         }
+
+
+
+
+
 
         [HttpGet]
         public IActionResult GetAllDepartments()
         {
-            List<Department> depts= _context.Departments.ToList();
+            List<Department> depts = unit.DepartmentRepository.GetAll();
             List<DepartmentDto> deptDtoList = new List<DepartmentDto>();
             foreach (var item in depts)
             {
@@ -41,7 +58,7 @@ namespace ITIDB_.net_WebApi.Controllers
         [HttpGet("{id}")]
         public IActionResult GetDepartmentById(int id)
         {
-            Department dept = _context.Departments.Find(id);
+            Department dept = unit.DepartmentRepository.GetById(id);
             if(dept == null)
             {
                 return NotFound();

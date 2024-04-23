@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ITIDB_.net_WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:ITIDB_.net_WebApi.Controllers.StudentController.GetStudentById(System.Int32)">
+            <summary>
+            get student by student id
+            </summary>
+            <param name="id"> student id</param>
+            <returns> list of students</returns>
+            <remarks>
+            request example:
+             /api/student/1
+            </remarks>
+        </member>
+    </members>
+</doc>
