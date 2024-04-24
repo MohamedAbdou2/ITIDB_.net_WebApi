@@ -3,8 +3,11 @@ using ITIDB_.net_WebApi.interfaces;
 using ITIDB_.net_WebApi.Models;
 using ITIDB_.net_WebApi.repositories;
 using ITIDB_.net_WebApi.UniitOfWorks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 namespace ITIDB_.net_WebApi
 {
@@ -52,7 +55,22 @@ namespace ITIDB_.net_WebApi
 
             });
 
-            //custom services
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                string key = "welcme to secret key mohamed abdou";
+                SymmetricSecurityKey secret = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateLifetime = true,
+                    ValidateAudience = false,
+                    ValidateIssuer = false,
+                    ValidateIssuerSigningKey = true,
+                 
+                };
+            });
+
+                        //custom services
 
             //builder.Services.AddScoped<IStudentRepo, StudentRepository>();
             //builder.Services.AddScoped<IDepartmentRepo, DepartmentRepository>();
